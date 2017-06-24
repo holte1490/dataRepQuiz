@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Data Representation Menu</title>
+  
+  
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="/static/css/style.css">
+
+  
+</head>
+
+<body>
+    <div class="wrapper">
+    <form class="form-signin" method="post" name="quiz">
+      <h2 class="form-signin-heading">Quiz</h2>
+        <h3 class="form-signin-heading">Convert Binary to Denary</h3>
+        {{ form.hidden_tag() }}
+        <p>{% for question in questions %}<br>
+            {{ question }}
+            {{ form.question(size=40) }}<br>
+        </p>
+        {% endfor %}
+        <p><input class="btn btn-lg btn-primary btn-block" type="submit" value="submit"></p>
+    </form>
+  </div>
+  
+  
+</body>
+</html>
