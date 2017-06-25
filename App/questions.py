@@ -1,5 +1,5 @@
 import csv, random, sys, sqlite3
-import dbconn
+from BCS.App.bcsRepository import QuestionsRepository
 
 ##read the file in and return question and answer set##
 def get_questions(qset):

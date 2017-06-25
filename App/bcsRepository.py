@@ -2,7 +2,7 @@ import sqlite3
 
 
 class BcsConnection:
-    db = sqlite3.connect('Student_Information.db')
+    db = sqlite3.connect('app.db')
     c = db.cursor()
 
 

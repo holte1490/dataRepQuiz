@@ -12,6 +12,8 @@ app: Flask = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
+from BCS.App import models
+
 @app.route('/')
 def index():
     return render_template('index.html', title='Login')
