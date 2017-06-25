@@ -6,13 +6,13 @@ sys.path.append(os.getcwd()[:os.getcwd().index('BCS')])
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from BCS.App.forms import QuestionForm
-from BCS.App.questions import get_questions
 
 app: Flask = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
 from BCS.App import models
+from BCS.App.questionService import QuestionService
 
 @app.route('/')
 def index():
@@ -27,31 +27,19 @@ def page_not_found(e):
 @app.route('/quiz/<quizname>', methods=['GET', 'POST'])
 def quiz(quizname):
     form: QuestionForm = QuestionForm()
+    question_service = QuestionService(db)
 
-    question_title: str = ""
-    question_path: str = "./csv/" + quizname + ".csv"
-    questions: list = []
+    questions = question_service.get_questions('denbin')
+    print(questions)
 
-    print(question_path)
-
-    try:
-        qs_and_as = get_questions(question_path)
-
-        for q in qs_and_as:
-            questions.append(q[0])
-
-        if form.validate_on_submit():
-            print(form.question.data)
-
-    except FileNotFoundError:
-        print("File not found")
-        redirect(url_for("page_not_found"))
+    if form.validate_on_submit():
+        print(form.question.data)
 
     return render_template(
         'quiz.html',
         questions=questions,
         form=form,
-        question_title=question_title
+        question_title=quizname
     )
 
            

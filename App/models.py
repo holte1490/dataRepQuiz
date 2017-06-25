@@ -2,17 +2,21 @@ from BCS.App.app import db
 from passlib.hash import bcrypt
 
 
-class Questions(db.Model):
+class Question(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     category: str = db.Column(db.String, index=True)
+    title: str = db.Column(db.String, index=True)
     question: str = db.Column(db.String, index=True)
     answer: str = db.Column(db.String, index=True)
+
+    def get_question(self):
+        return Question.query.get(1)
 
     def __repr__(self):
         return '<Questions %r>' % self.category
 
 
-class Users(db.Model):
+class User(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     username: str = db.Column(db.String, index=True, unique=True)
     email: str = db.Column(db.String, index=True)
@@ -28,3 +32,9 @@ class Users(db.Model):
 
     def __repr__(self):
         return "<User(username ='%s', password='%s', email='%s')>" % (self.username, self.password, self.email)
+
+
+class Scores(db.Model):
+    id: int = db.Column(db.Integer, primary_key=True)
+    user_id: int = db.Column(db.Integer, db.ForeignKey('user.id'))
+    correct_answers: int = db.Column(db.Integer, index=True)
