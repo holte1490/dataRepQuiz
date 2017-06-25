@@ -62,7 +62,10 @@ target/
 
 # db
 *.db
+.db-journal
 
 # pycache
 *.pyc
 
+# db_migrate
+db_repository/
