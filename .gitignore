@@ -62,3 +62,7 @@ target/
 
 # db
 *.db
+
+# pycache
+*.pyc
+__pycache__
