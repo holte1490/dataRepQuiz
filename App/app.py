@@ -4,11 +4,13 @@ import os
 sys.path.append(os.getcwd()[:os.getcwd().index('BCS')])
 
 from flask import Flask, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 from BCS.App.forms import QuestionForm
 from BCS.App.questions import get_questions
 
 app: Flask = Flask(__name__)
 app.config.from_object('config')
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
