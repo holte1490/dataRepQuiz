@@ -23,29 +23,25 @@ class UserRepository(BcsConnection):
 
 class QuestionsRepository(BcsConnection):
 
-    def save_scores(self, c, dbs, bds, hds, dhs, name): ##not working properly
+    def save_scores(self, dbs, bds, hds, dhs, name): ##not working properly
         print(dbs)
         print(bds)
         print(hds)
         print(name)
 
-
-        c.execute('''UPDATE students SET denbin_score = ?, binden_score = ?, hexden_score = ?, denhex_score = ? WHERE name = ?''',
+        self.c.execute('''UPDATE students SET denbin_score = ?, binden_score = ?, hexden_score = ?, denhex_score = ? WHERE name = ?''',
                   (dbs, bds, hds, dhs, name))
         print("Score updated")
         self.db.commit()
 
+    def get_questions_for_category(self, category):
+        self.c.execute(
+                '''SELECT * FROM questions WHERE category = ?''', (category)
+            )
 
-# def stu_table():
-#     c.execute('''CREATE TABLE IF NOT EXISTS students(
-#                       id integer PRIMARY KEY,
-#                       name text NOT NULL,
-#                       password text,
-#                       denbin_score integer,
-#                       binden_score integer,
-#                       hexden_score integer,
-#                       denhex_score integer
-#                 );''')
+        return self.c.fetchall()
+
+
 
 
 
